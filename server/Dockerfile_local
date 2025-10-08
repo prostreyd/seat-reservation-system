@@ -1,13 +1,12 @@
-FROM node:20
+FROM node:22
 
 WORKDIR /app
 
 COPY package.json ./
-COPY yarn.lock ./
 
-RUN yarn install
-RUN yarn global add @nestjs/cli
+RUN npm install
+RUN npm install -g @nestjs/cli
 
 COPY . .
 
-CMD [ -d "node_modules" ] && yarn dev || yarn install --frozen-lockfile && yarn dev
+CMD [ -d "node_modules" ] && npm run dev || npm install --frozen-lockfile && npm run dev
