@@ -1,0 +1,28 @@
+version: "3.8"
+
+name: seat-reservation-system_local
+
+services:
+  server:
+    container_name: "seat-reservation-system_server_local"
+    restart: always
+    build:
+      context: server
+      dockerfile: Dockerfile_local
+    user: 1000:1000
+    expose:
+      - 5000
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./server:/app
+  nginx:
+    image: nginx
+    restart: "no"
+    container_name: "seat-reservation-system_nginx_local"
+    ports:
+      - 7000:80
+    depends_on:
+      - server
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./nginx/local:/etc/nginx/conf.d

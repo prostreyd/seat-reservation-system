@@ -1,0 +1,27 @@
+version: "3.8"
+
+name: seat-reservation-system_prod
+
+services:
+  server:
+    container_name: "seat-reservation-system_server_prod"
+    restart: always
+    build: server
+    command: npm run start:prod
+    expose:
+      - 5000
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /app/node_modules
+  nginx:
+    image: nginx
+    restart: "no"
+    container_name: "seat-reservation-system_nginx_prod"
+    ports:
+      - 80:80
+    depends_on:
+      - server
+    volumes:
+      - ./client/dist:/usr/share/nginx/html
+      - /etc/localtime:/etc/localtime:ro
+      - ./nginx/prod:/etc/nginx/conf.d
