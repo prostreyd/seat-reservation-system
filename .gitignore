@@ -1,0 +1,13 @@
+node_modules
+*.log*
+.cache
+.output
+*.env
+!example.env
+dist
+nginx/certbot
+postgres
+dbgate
+layout_images
+
+test_final
