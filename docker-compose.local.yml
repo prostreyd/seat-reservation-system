@@ -9,6 +9,8 @@ services:
     build:
       context: server
       dockerfile: Dockerfile_local
+    env_file:
+      - ./local.env
     user: 1000:1000
     depends_on:
       - db
@@ -36,6 +38,8 @@ services:
     restart: always
     expose:
       - 5432
+    env_file:
+      - local.env
     environment:
       - POSTGRES_DB=$DB_DATABASE
       - POSTGRES_USER=$DB_USERNAME
